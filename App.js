@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, FlatList, SectionList } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, FlatList, SectionList, ListView, Switch, TextInput } from 'react-native';
 import img from "./assets/watch.jpg";
 
 const rows = [
@@ -34,6 +34,14 @@ const sections = [
 const sectionKey = ({id}) => id;
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: false,
+      text: "hello"
+    }
+  }
 
   renderItem = ({ item }) => {
     return (
@@ -67,6 +75,15 @@ class App extends Component {
           <Text>Changes you make will automatically reload.</Text>
           <Text>Shake your phone to open the developer menu.</Text>
           <Text>This is my first react native code!</Text>
+          <TextInput
+            style={styles.input}
+            value={this.state.text}
+            onChangeText= {inputText => this.setState({text: inputText})}
+          />
+          <Switch 
+            value={this.state.value}
+            onValueChange={()=> this.setState({value: !this.state.value})}
+          />
           <View style={styles.flex}>
             <View style={styles.box}>
               <Text style={styles.text}> I am a box</Text>
@@ -75,6 +92,10 @@ class App extends Component {
           <Image
             style={styles.image}
             source={img}
+          />
+            <Image
+            style={styles.image}
+            source={{uri: 'https://facebook.github.io/react/logo-og.png'}}
           />
         </View>
         <View style={styles.boxLarge} />
@@ -106,12 +127,16 @@ class App extends Component {
 }
 
 const styles = StyleSheet.create({
+  input: {
+    width: 200,
+    backgroundColor: "gray"
+  },
   scroll: {
     flex: 1
   },
   container: {
     flex: 1,
-    backgroundColor: 'cornflowerblue',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
